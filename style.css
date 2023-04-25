@@ -1,3 +1,10 @@
+body{
+    background-image: url(kepek/Fahatter.jpg) ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 table{
     border: 3px solid black;
     width: 55vw;
@@ -11,13 +18,17 @@ h1{
 }
 tr{
     background-color: lightgreen;
-    border: "1px solid lightgreen";
+    border: 3px solid black;
+}
+td{
+    
 }
 tr:nth-child(2n) td:nth-child(2n){
     background-color: green;
+    
 
  }
  tr:nth-child(2n+1) td:nth-child(2n+1){
     background-color: green;
-    border: "1px solid green";
+    
  }
