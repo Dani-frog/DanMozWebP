@@ -7,8 +7,8 @@ body{
 
 table{
     border: 3px solid black;
-    width: 55vw;
-    height: 55vw;
+    width: 48vw;
+    height: 48vw;
     margin: auto;
 }
 h1{
@@ -21,8 +21,12 @@ tr{
     border: 3px solid black;
 }
 td{
-    
+    width: 6vw;
+    height: 6vw;
+    align-items: center;
+    /*comment ez fontos kövi alkalomra h csíkba is lenni kell*/
 }
+
 tr:nth-child(2n) td:nth-child(2n){
     background-color: green;
     
@@ -31,4 +35,11 @@ tr:nth-child(2n) td:nth-child(2n){
  tr:nth-child(2n+1) td:nth-child(2n+1){
     background-color: green;
     
+ }
+
+ .korong{
+    align-items: center;
+    display: flex;
+    width: 5vw;
+    height: 5vw;
  }

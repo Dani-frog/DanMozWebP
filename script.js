@@ -8,10 +8,14 @@ var Matrix=[];//kezdő helyek 28,29 ,,, 36,37
 function Jatekeleje(){
 //első korong koordináta
 tabla.appendChild(jatekter);
-var kep = document.createElement("img");
-kep.src= "kepek/"+1+".png";
+var feher = document.createElement("img");
+var fekete = document.createElement("img");
+feher.src= "kepek/"+1+".png";
+fekete.src= "kepek/"+2+".png";
+feher.className="korong";
+fekete.className="korong";
 
-document.getElementById("1_1").appendChild(kep);
+document.getElementById("1_1").appendChild(feher);
 }
 
 function tablaGen(){
