@@ -1,0 +1,23 @@
+table{
+    border: 3px solid black;
+    width: 55vw;
+    height: 55vw;
+    margin: auto;
+}
+h1{
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+tr{
+    background-color: lightgreen;
+    border: "1px solid lightgreen";
+}
+tr:nth-child(2n) td:nth-child(2n){
+    background-color: green;
+
+ }
+ tr:nth-child(2n+1) td:nth-child(2n+1){
+    background-color: green;
+    border: "1px solid green";
+ }
