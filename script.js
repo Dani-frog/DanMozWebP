@@ -6,13 +6,13 @@ var jatekter = document.createElement("table");
 var Matrix=[];//kezdő helyek 28,29 ,,, 36,37
 var valtozott=false;
 
-var  iranyvektor =[[1,0],[-1,0],//vizszintes
+var  iranyvektor =[[1,0],[-1,0],//vizszintes //amoba
                 [0,1],[0,-1], //függőleges
                 [1,-1],[-1,1], //főátló
                 [1,1],[-1,-1] //mellékátló
 ];
 
-function atvaltas()
+function atvaltas()//04_17 mappa
 {
     if (!valtozott) {
         jatekos++;
