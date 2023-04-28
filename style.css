@@ -23,7 +23,7 @@ tr{
 td{
     width: 6vw;
     height: 6vw;
-    align-items: center;
+  justify-content: center;
     /*comment ez fontos kövi alkalomra h csíkba is lenni kell*/
 }
 

@@ -4,18 +4,54 @@ var jatekos2pont=0;
 var tabla = document.getElementById("tabla");
 var jatekter = document.createElement("table");
 var Matrix=[];//kezdő helyek 28,29 ,,, 36,37
+var valtozott=false;
+
+var  iranyvektor =[[1,0],[-1,0],//vizszintes
+                [0,1],[0,-1], //függőleges
+                [1,-1],[-1,1], //főátló
+                [1,1],[-1,-1] //mellékátló
+];
+
+function atvaltas()
+{
+    if (!valtozott) {
+        jatekos++;
+        valtozott=true;
+    }
+}
 
 function Jatekeleje(){
 //első korong koordináta
-tabla.appendChild(jatekter);
-var feher = document.createElement("img");
-var fekete = document.createElement("img");
-feher.src= "kepek/"+1+".png";
-fekete.src= "kepek/"+2+".png";
-feher.className="korong";
-fekete.className="korong";
+    tabla.appendChild(jatekter);
 
-document.getElementById("1_1").appendChild(feher);
+
+    for (let i = 4; i < 6; i++) {
+        var feher = document.createElement("img");
+        var fekete = document.createElement("img");
+
+        feher.src= "kepek/"+1+".png";
+        fekete.src= "kepek/"+2+".png";
+
+        feher.className="korong";
+        fekete.className="korong";
+
+        var j =4;
+        if (i==5) {
+            j=5;
+            document.getElementById(i+"_"+j).appendChild(feher);
+            j--;
+            document.getElementById(i+"_"+j).appendChild(fekete);
+            //console.log(i,j);
+            
+        }
+        else{
+            document.getElementById(i+"_"+j).appendChild(feher);
+            j++;
+            document.getElementById(i+"_"+j).appendChild(fekete);
+            //console.log(i,j);
+        }
+}
+
 }
 
 function tablaGen(){
