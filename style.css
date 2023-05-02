@@ -4,7 +4,16 @@ body{
     background-attachment: fixed;
     background-size: cover;
 }
-
+#eredmenyjelzo{
+    text-align: center;
+    position: relative;
+    float: right;
+}
+#lepes{
+    text-align: center;
+    position: relative;
+    float: left;
+}
 table{
     border: 3px solid black;
     width: 48vw;
@@ -15,6 +24,7 @@ h1{
     text-align: center;
     font-weight: bold;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
 }
 tr{
     background-color: lightgreen;

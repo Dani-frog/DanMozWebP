@@ -5,6 +5,44 @@ var tabla = document.getElementById("tabla");
 var jatekter = document.createElement("table");
 var Matrix=[];//kezdő helyek 28,29 ,,, 36,37
 var valtozott=false;
+var lepes = document.getElementById("lepes");
+var eredmenyjelzo = document.getElementById("eredmenyjelzo");
+
+
+// Lépő
+lepes.innerHTML = "player"+jatekos%2+" következik."
+lepes.style.color = "white";
+
+
+// eredményjelző
+var fejlec = document.createElement("tr");
+var player1 = document.createElement("td")
+player1.innerHTML = "player1";
+var player2 = document.createElement("td")
+player2.innerHTML = "player2";
+fejlec.appendChild(player1);
+fejlec.appendChild(player2);
+
+var score = document.createElement("tr");
+var elso = document.createElement("td")
+elso.innerHTML = 0;
+var masodik = document.createElement("td")
+masodik.innerHTML = 0;
+
+player1.style.backgroundColor = "black";
+player2.style.backgroundColor = "black";
+player1.style.color = "white";
+player2.style.color = "white";
+
+elso.style.backgroundColor = "white";
+masodik.style.backgroundColor = "white";
+
+score.appendChild(elso);
+score.appendChild(masodik);
+eredmenyjelzo.appendChild(fejlec);
+eredmenyjelzo.appendChild(score);
+
+//
 
 var  iranyvektor =[[1,0],[-1,0],//vizszintes //amoba
                 [0,1],[0,-1], //függőleges
