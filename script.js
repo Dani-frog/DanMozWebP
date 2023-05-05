@@ -1,6 +1,9 @@
 var jatekos=true;//true az elso, false akk a második;
 var jatekos1pont=0;
 var jatekos2pont=0;
+var jatekvege=false;
+var sor = 8;
+var oszlop = 8;
 var tabla = document.getElementById("tabla");
 var jatekter = document.createElement("table");
 var Matrix=[];//kezdő helyek 28,29 ,,, 36,37
@@ -44,17 +47,79 @@ eredmenyjelzo.appendChild(score);
 
 //
 
-var  iranyvektor =[[1,0],[-1,0],//vizszintes //amoba
-                [0,1],[0,-1], //függőleges
-                [1,-1],[-1,1], //főátló
-                [1,1],[-1,-1] //mellékátló
-];
-
-function atvaltas()//04_17 mappa
+function Main()
 {
-    if (!valtozott) {
-        jatekos++;
-        valtozott=true;
+    matrix=[];
+    jatekvege=false;
+    var div = document.createElement('div');
+    generalas();
+	
+}
+
+
+function katt(td)
+{
+	
+    if(!jatekvege)
+    {
+	
+    if(td.innerHTML=="")
+    {
+        let jatekos;
+    if(lepes%2==0)
+    {
+        td.innerHTML = "X";
+        jatekos="X";
+        matrix[td.dataset.sor][td.dataset.oszlop]="X";
+    } 
+    else{
+        td.innerHTML = "O"
+        jatekos ="O"
+        matrix[td.dataset.sor][td.dataset.oszlop]="O";
+    }
+	if(lepes==(sor*oszlop))
+	{document.getElementById("kiiratas").innerHTML="Döntetlen! Nem nyert senki!";
+		jatekvege=true;}
+
+    for(let i =0; i<iranyvektor.length;i+=2)
+    {
+        if(megszamol(i,jatekos,td.dataset.sor-0,td.dataset.oszlop-0)+
+        megszamol(i+1,jatekos,td.dataset.sor-0,td.dataset.oszlop-0)+1==5)
+        {
+            
+            
+            
+            if(jatekos=="X")
+            {
+                jatekosx++;
+            }
+            else
+            {
+                jatekoso++;
+            }
+            /*document.getElementById("kiiratas").innerHTML="Nyert az:"+jatekos+"   "+"Nyomd meg a Generálást új játékhoz!";
+            document.getElementById("pontok").innerHTML="X nyert körök: "+jatekosx+"/"+" O nyert körök: "+jatekoso;*/
+
+
+            jatekvege=true;
+            
+        }
+
+    }
+}
+}
+}
+
+function uresMatrix()
+{
+    for (let i = 0; i <sor; i++) {
+        let uresSor=[];
+        for (let j = 0; j < oszlop; j++) {
+            uresSor.push(0);
+            
+        }
+        matrix.push(uresSor);
+        
     }
 }
 
