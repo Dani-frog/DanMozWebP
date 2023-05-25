@@ -3,53 +3,15 @@ body{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-}
-#eredmenyjelzo{
-    text-align: center;
     position: relative;
-    float: right;
-}
-#lepes{
-    text-align: center;
-    position: relative;
-    float: left;
-}
-table{
-    border: 3px solid black;
-    width: 48vw;
-    height: 48vw;
-    margin: auto;
-}
-h1{
-    text-align: center;
-    font-weight: bold;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: white;
-}
-tr{
-    background-color: lightgreen;
-    border: 3px solid black;
-}
-td{
-    width: 6vw;
-    height: 6vw;
-  justify-content: center;
-    /*comment ez fontos kövi alkalomra h csíkba is lenni kell*/
 }
 
-tr:nth-child(2n) td:nth-child(2n){
-    background-color: green;
-    
 
- }
- tr:nth-child(2n+1) td:nth-child(2n+1){
-    background-color: green;
-    
- }
+#pontok{
+    position: absolute;
+    top: 40vw;
+    background-color: white;
+    border: solid black 1vw;
+    font-size:  5vw;
+}
 
- .korong{
-    align-items: center;
-    display: flex;
-    width: 5vw;
-    height: 5vw;
- }
