@@ -1,183 +1,141 @@
-var jatekos=true;//true az elso, false akk a második;
-var jatekos1pont=0;
-var jatekos2pont=0;
-var jatekvege=false;
-var sor = 8;
-var oszlop = 8;
-var tabla = document.getElementById("tabla");
-var jatekter = document.createElement("table");
-var Matrix=[];//kezdő helyek 28,29 ,,, 36,37
-var valtozott=false;
-var lepes = document.getElementById("lepes");
-var eredmenyjelzo = document.getElementById("eredmenyjelzo");
+var kockaszel = 4;
+var kockakozotthely=0.25;
+var korongok;
+var mozoghatkarika;
+var jatekos=1;
+var pontok;
+var Jatekveg = false;
+var matrix =[
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,2,1,0,0,0],
+    [0,0,0,1,2,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0]
+];
 
-
-// Lépő
-lepes.innerHTML = "player"+jatekos%2+" következik."
-lepes.style.color = "white";
-
-
-// eredményjelző
-var fejlec = document.createElement("tr");
-var player1 = document.createElement("td")
-player1.innerHTML = "player1";
-var player2 = document.createElement("td")
-player2.innerHTML = "player2";
-fejlec.appendChild(player1);
-fejlec.appendChild(player2);
-
-var score = document.createElement("tr");
-var elso = document.createElement("td")
-elso.innerHTML = 0;
-var masodik = document.createElement("td")
-masodik.innerHTML = 0;
-
-player1.style.backgroundColor = "black";
-player2.style.backgroundColor = "black";
-player1.style.color = "white";
-player2.style.color = "white";
-
-elso.style.backgroundColor = "white";
-masodik.style.backgroundColor = "white";
-
-score.appendChild(elso);
-score.appendChild(masodik);
-eredmenyjelzo.appendChild(fejlec);
-eredmenyjelzo.appendChild(score);
-
-//
-
-function Main()
+window.onload = function()
 {
-    matrix=[];
-    jatekvege=false;
-    var div = document.createElement('div');
-    generalas();
-	
+    var tabla = document.getElementById("tabla");
+    korongok = document.getElementById("korongok");
+    pontok = document.getElementById("pontok");
+    mozoghatkarika=document.getElementById("mozoghatkarika");
+    Tablazat();
+    megjelenito();
+    
 }
 
-
-function katt(td)
+function Tablazat()
 {
-	
-    if(!jatekvege)
-    {
-	
-    if(td.innerHTML=="")
-    {
-        let jatekos;
-    if(lepes%2==0)
-    {
-        td.innerHTML = "X";
-        jatekos="X";
-        matrix[td.dataset.sor][td.dataset.oszlop]="X";
-    } 
-    else{
-        td.innerHTML = "O"
-        jatekos ="O"
-        matrix[td.dataset.sor][td.dataset.oszlop]="O";
+    for (var sor = 0; sor < 8; sor++) {
+        for (var oszlop = 0; oszlop < 8; oszlop++)    {
+            var kocka = document.createElement("div");
+            kocka.style.position="absolute";
+            kocka.style.width=kockaszel+"vw";
+            kocka.style.height=kockaszel+"vw";
+            kocka.style.backgroundColor="green";
+            kocka.style.left=((kockaszel+kockakozotthely)*oszlop)+"vw";
+            kocka.style.top=((kockaszel+kockakozotthely)*sor)+"vw";
+            tabla.appendChild(kocka);
+        }
     }
-	if(lepes==(sor*oszlop))
-	{document.getElementById("kiiratas").innerHTML="Döntetlen! Nem nyert senki!";
-		jatekvege=true;}
+}
 
-    for(let i =0; i<iranyvektor.length;i+=2)
+function mikerintettkorongok(id,sor,oszlop) 
+{
+    var erintettkorongok=[];
+    //jobbra
+    var erinthetoe=[];
+    var oszlopjaro=oszlop;
+    while(oszlopjaro<7)
     {
-        if(megszamol(i,jatekos,td.dataset.sor-0,td.dataset.oszlop-0)+
-        megszamol(i+1,jatekos,td.dataset.sor-0,td.dataset.oszlop-0)+1==5)
+        oszlopjaro+=1;
+        var ertekahelyen = matrix[sor][oszlopjaro];
+        if (ertekahelyen==0 || ertekahelyen==id)
         {
-            
-            
-            
-            if(jatekos=="X")
+            if (ertekahelyen==id)
             {
-                jatekosx++;
+            erintettkorongok=erintettkorongok.concat(erinthetoe);
             }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sor,oszlop:oszlopjaro}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+    //balra
+    var erinthetoe=[];
+    var oszlopjaro=oszlop;
+    while(oszlopjaro>0)
+    {
+        oszlopjaro-=1;
+        var ertekahelyen = matrix[sor][oszlopjaro];
+        if (ertekahelyen==0 || ertekahelyen==id)
+        {
+            if (ertekahelyen==id)
+            {
+            erintettkorongok=erintettkorongok.concat(erinthetoe);
+            }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sor,oszlop:oszlopjaro}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+}
+
+function korongforditas(erintettkorongok)
+{
+    for (let i = 0; i < erintettkorongok.length; i++) {
+        var hely = erintettkorongok[i];
+        if (matrix[hely.sor][hely.oszlop]==1) {
+            matrix[hely.sor][hely.oszlop]=2;
+        }
+        else
+        {
+            matrix[hely.sor][hely.oszlop]=1;
+        }
+    }
+}
+
+function megjelenito()
+{
+    korongok.innerHTML="";
+    for (var sor = 0; sor < 8; sor++) {
+        for (var oszlop = 0; oszlop < 8; oszlop++)    {
+            var ertek = matrix[sor][oszlop]
+            if (ertek ==0) {}
             else
             {
-                jatekoso++;
+                var korong = document.createElement("div");
+                korong.style.position="absolute";
+                korong.style.width=kockaszel-1+"vw";//A -1 az leveszi a méretét a korongnak, mivel a 
+                korong.style.height=kockaszel-1+"vw";//kockába pontosan illeszkedik, ami hülyén néz ki ezért lekicsinyítjűk 1 vw-vel(méret ami responsive).
+                korong.style.borderRadius="50%";
+                korong.style.left=((kockaszel+kockakozotthely)*oszlop)+0.5+"vw";//itt pedig annak az értéknek a felét hozzáadjuk,
+                korong.style.top=((kockaszel+kockakozotthely)*sor)+0.5+"vw"; //hogy ne csússzon ki a kereből.
+                korongok.appendChild(korong);
+
+            if (ertek==1) 
+            {
+                korong.style.backgroundColor="black";
+                korong.style.backgroundImage="radial-gradient(#333333 30%, black 70%)"
             }
-            /*document.getElementById("kiiratas").innerHTML="Nyert az:"+jatekos+"   "+"Nyomd meg a Generálást új játékhoz!";
-            document.getElementById("pontok").innerHTML="X nyert körök: "+jatekosx+"/"+" O nyert körök: "+jatekoso;*/
-
-
-            jatekvege=true;
-            
+            if (ertek==2)
+            {
+                korong.style.backgroundColor="white" ;
+                korong.style.backgroundImage="radial-gradient(white 30%, #cccccc 70%)"
+            }
+            }
         }
-
-    }
-}
-}
-}
-
-function uresMatrix()
-{
-    for (let i = 0; i <sor; i++) {
-        let uresSor=[];
-        for (let j = 0; j < oszlop; j++) {
-            uresSor.push(0);
-            
-        }
-        matrix.push(uresSor);
         
     }
 }
-
-function Jatekeleje(){
-//első korong koordináta
-    tabla.appendChild(jatekter);
-
-
-    for (let i = 4; i < 6; i++) {
-        var feher = document.createElement("img");
-        var fekete = document.createElement("img");
-
-        feher.src= "kepek/"+1+".png";
-        fekete.src= "kepek/"+2+".png";
-
-        feher.className="korong";
-        fekete.className="korong";
-
-        var j =4;
-        if (i==5) {
-            j=5;
-            document.getElementById(i+"_"+j).appendChild(feher);
-            j--;
-            document.getElementById(i+"_"+j).appendChild(fekete);
-            //console.log(i,j);
-            
-        }
-        else{
-            document.getElementById(i+"_"+j).appendChild(feher);
-            j++;
-            document.getElementById(i+"_"+j).appendChild(fekete);
-            //console.log(i,j);
-        }
-}
-
-}
-
-function tablaGen(){
-    //var k = 0;
-    var s=1;
-    
-    for(var i = 0;i<8;i++){
-        var sor = document.createElement("tr");
-        var o=1;
-        for(var j = 0;j<8;j++){
-            
-            var oszlop = document.createElement("td");
-            sor.appendChild(oszlop)
-            oszlop.id = s+"_"+o;
-            //oszlop.style.border = "2px solid red";
-            Matrix.push(oszlop.id);
-            o++;
-
-        }
-        jatekter.appendChild(sor);
-        s++;
-    }
-    
-}
-tablaGen();
-Jatekeleje();
