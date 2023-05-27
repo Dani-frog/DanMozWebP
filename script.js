@@ -90,6 +90,149 @@ function mikerintettkorongok(id,sor,oszlop)
         }
     }
 
+
+
+    //fel
+    var erinthetoe=[];
+    var sorjaro=sor;
+    while(sorjaro>0)
+    {
+        sorjaro-=1;
+        var ertekahelyen = matrix[sorjaro][oszlop];
+        if (ertekahelyen==0 || ertekahelyen==id)
+        {
+            if (ertekahelyen=id)
+            {
+            erintettkorongok=erintettkorongok.concat(erinthetoe);
+            }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sorjaro,oszlop:oszlop}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+    //le
+    var erinthetoe=[];
+    var sorjaro=sor;
+    while(sorjaro<7)
+    {
+        sorjaro+=1;
+        var ertekahelyen = matrix[sorjaro][oszlop];
+        if (ertekahelyen==0 || ertekahelyen==id)
+        {
+            if (ertekahelyen==id)
+            {
+            erintettkorongok=erintettkorongok.concat(erinthetoe);
+            }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sorjaro,oszlop:oszlop}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+    //jobbra le
+    var erinthetoe=[];
+    var sorjaro=sor;
+    var oszlopjaro = oszlop;
+    while(sorjaro<7 && oszlopjaro<7)
+    {
+        sorjaro+=1;
+        oszlopjaro+=1;
+        var ertekahelyen = matrix[sorjaro][oszlopjaro];
+        if (ertekahelyen==0 || ertekahelyen==id)
+        {
+            if (ertekahelyen==id)
+            {
+            erintettkorongok= erintettkorongok.concat(erinthetoe);
+            }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+    //balra le
+    var erinthetoe=[];
+    var sorjaro=sor;
+    var oszlopjaro = oszlop;
+    while(sorjaro<7 && oszlopjaro>0)
+    {
+        sorjaro+=1;
+        oszlopjaro-=1;
+        var ertekahelyen = matrix[sorjaro][oszlopjaro];
+        if (ertekahelyen==0 || ertekahelyen==id)
+        {
+            if (ertekahelyen==id)
+            {
+            erintettkorongok= erintettkorongok.concat(erinthetoe);
+            }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+    //balra fel
+    var erinthetoe=[];
+    var sorjaro=sor;
+    var oszlopjaro = oszlop;
+    while(sorjaro>0 && oszlopjaro>0)
+    {
+        sorjaro-=1;
+        oszlopjaro-=1;
+        var ertekahelyen = matrix[sorjaro][oszlopjaro];
+        if (ertekahelyen==0 || ertekahelyen==id)
+        {
+            if (ertekahelyen==id)
+            {
+            erintettkorongok= erintettkorongok.concat(erinthetoe); //concat: egy vagy több lista/tömb mergelése(egyesítése)
+            }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+    //jobbra fel
+    var erinthetoe=[];
+    var sorjaro=sor;
+    var oszlopjaro = oszlop;
+    while(sorjaro>0 && oszlopjaro<7)
+    {
+        sorjaro-=1;
+        oszlopjaro+=1;
+        var ertekahelyen = matrix[sorjaro][oszlopjaro];
+        if (ertekahelyen==0 || ertekahelyen==id)
+        {
+            if (ertekahelyen==id)
+            {
+            erintettkorongok= erintettkorongok.concat(erinthetoe);
+            }
+            break;    
+        }
+        else
+        {
+            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+            erinthetoe.push(koronghely);
+        }
+    }
+
+    return erintettkorongok;
 }
 
 function korongforditas(erintettkorongok)
