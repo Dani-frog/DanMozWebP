@@ -24,6 +24,7 @@ window.onload = function()
     mozoghatkarika=document.getElementById("mozoghatkarika");
     Tablazat();
     megjelenito();
+    karikamegjelenito();
     
 }
 
@@ -38,9 +39,70 @@ function Tablazat()
             kocka.style.backgroundColor="green";
             kocka.style.left=((kockaszel+kockakozotthely)*oszlop)+"vw";
             kocka.style.top=((kockaszel+kockakozotthely)*sor)+"vw";
+            kocka.setAttribute("onclick","kockaklikk("+sor+","+oszlop+")")   
             tabla.appendChild(kocka);
         }
     }
+}
+
+function mozoghat(id) {
+    for (var sor = 0; sor < 8; sor++) {
+        for (var oszlop = 0; oszlop < 8; oszlop++)    {
+            if (klikkelheto(id,sor,oszlop))
+            {
+            return true;    
+            }
+        }
+    }
+    return false;
+}
+
+function pontokvalt()
+{
+    var fekete = 0;
+    var feher = 0;
+    for (var sor = 0; sor < 8; sor++) {
+        for (var oszlop = 0; oszlop < 8; oszlop++)    {
+            var ertek = matrix[sor][oszlop];
+            if (ertek==1) fekete+=1;
+            else if(ertek ==2) feher+=1;
+        }
+    }
+    pontok.innerHTML="Fekete: "+fekete+ " White: "+feher;
+}
+
+function kockaklikk(sor,oszlop)
+{
+    if (Jatekveg) return;
+
+    if (matrix[sor][oszlop]!= 0) {
+        return;
+    }
+    if (klikkelheto(jatekos,sor,oszlop)==true) {
+        var erintettkorongok = mikerintettkorongok(jatekos,sor,oszlop);
+        korongforditas(erintettkorongok);
+        matrix[sor][oszlop]=jatekos;
+        if(jatekos==1 && mozoghat(2))jatekos=2;
+        else if (jatekos=1 && mozoghat(1));
+        if (mozoghat(1)==false && mozoghat(2)==false) 
+        {
+         alert("Vége a játéknak!")   
+         Jatekveg = true;
+        }
+        megjelenito();
+        karikamegjelenito();
+        pontokvalt();
+    }
+    else {return;}
+    
+}
+
+function klikkelheto(jatekos,sor,oszlop)
+{
+    var erintettkorongok = mikerintettkorongok(jatekos,sor,oszlop);
+    if (erintettkorongok.length==0)return false;
+    else return true;
+    
 }
 
 function mikerintettkorongok(id,sor,oszlop) 
@@ -90,8 +152,6 @@ function mikerintettkorongok(id,sor,oszlop)
         }
     }
 
-
-
     //fel
     var erinthetoe=[];
     var sorjaro=sor;
@@ -136,101 +196,101 @@ function mikerintettkorongok(id,sor,oszlop)
         }
     }
 
-    //jobbra le
-    var erinthetoe=[];
-    var sorjaro=sor;
-    var oszlopjaro = oszlop;
-    while(sorjaro<7 && oszlopjaro<7)
-    {
-        sorjaro+=1;
-        oszlopjaro+=1;
-        var ertekahelyen = matrix[sorjaro][oszlopjaro];
-        if (ertekahelyen==0 || ertekahelyen==id)
-        {
-            if (ertekahelyen==id)
-            {
-            erintettkorongok= erintettkorongok.concat(erinthetoe);
-            }
-            break;    
-        }
-        else
-        {
-            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
-            erinthetoe.push(koronghely);
-        }
-    }
+     //jobbra le
+     var erinthetoe=[];
+     var sorjaro=sor;
+     var oszlopjaro = oszlop;
+     while(sorjaro<7 && oszlopjaro<7)
+     {
+         sorjaro+=1;
+         oszlopjaro+=1;
+         var ertekahelyen = matrix[sorjaro][oszlopjaro];
+         if (ertekahelyen==0 || ertekahelyen==id)
+         {
+             if (ertekahelyen==id)
+             {
+             erintettkorongok= erintettkorongok.concat(erinthetoe);
+             }
+             break;    
+         }
+         else
+         {
+             var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+             erinthetoe.push(koronghely);
+         }
+     }
 
-    //balra le
-    var erinthetoe=[];
-    var sorjaro=sor;
-    var oszlopjaro = oszlop;
-    while(sorjaro<7 && oszlopjaro>0)
-    {
-        sorjaro+=1;
-        oszlopjaro-=1;
-        var ertekahelyen = matrix[sorjaro][oszlopjaro];
-        if (ertekahelyen==0 || ertekahelyen==id)
-        {
-            if (ertekahelyen==id)
-            {
-            erintettkorongok= erintettkorongok.concat(erinthetoe);
-            }
-            break;    
-        }
-        else
-        {
-            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
-            erinthetoe.push(koronghely);
-        }
-    }
+     //balra le
+     var erinthetoe=[];
+     var sorjaro=sor;
+     var oszlopjaro = oszlop;
+     while(sorjaro<7 && oszlopjaro>0)
+     {
+         sorjaro+=1;
+         oszlopjaro-=1;
+         var ertekahelyen = matrix[sorjaro][oszlopjaro];
+         if (ertekahelyen==0 || ertekahelyen==id)
+         {
+             if (ertekahelyen==id)
+             {
+             erintettkorongok= erintettkorongok.concat(erinthetoe);
+             }
+             break;    
+         }
+         else
+         {
+             var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+             erinthetoe.push(koronghely);
+         }
+     }
 
-    //balra fel
-    var erinthetoe=[];
-    var sorjaro=sor;
-    var oszlopjaro = oszlop;
-    while(sorjaro>0 && oszlopjaro>0)
-    {
-        sorjaro-=1;
-        oszlopjaro-=1;
-        var ertekahelyen = matrix[sorjaro][oszlopjaro];
-        if (ertekahelyen==0 || ertekahelyen==id)
-        {
-            if (ertekahelyen==id)
-            {
-            erintettkorongok= erintettkorongok.concat(erinthetoe); //concat: egy vagy több lista/tömb mergelése(egyesítése)
-            }
-            break;    
-        }
-        else
-        {
-            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
-            erinthetoe.push(koronghely);
-        }
-    }
+     //balra fel
+     var erinthetoe=[];
+     var sorjaro=sor;
+     var oszlopjaro = oszlop;
+     while(sorjaro>0 && oszlopjaro>0)
+     {
+         sorjaro-=1;
+         oszlopjaro-=1;
+         var ertekahelyen = matrix[sorjaro][oszlopjaro];
+         if (ertekahelyen==0 || ertekahelyen==id)
+         {
+             if (ertekahelyen==id)
+             {
+             erintettkorongok= erintettkorongok.concat(erinthetoe); //concat: egy vagy több lista/tömb mergelése(egyesítése)
+             }
+             break;    
+         }
+         else
+         {
+             var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+             erinthetoe.push(koronghely);
+         }
+     }
 
-    //jobbra fel
-    var erinthetoe=[];
-    var sorjaro=sor;
-    var oszlopjaro = oszlop;
-    while(sorjaro>0 && oszlopjaro<7)
-    {
-        sorjaro-=1;
-        oszlopjaro+=1;
-        var ertekahelyen = matrix[sorjaro][oszlopjaro];
-        if (ertekahelyen==0 || ertekahelyen==id)
-        {
-            if (ertekahelyen==id)
-            {
-            erintettkorongok= erintettkorongok.concat(erinthetoe);
-            }
-            break;    
-        }
-        else
-        {
-            var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
-            erinthetoe.push(koronghely);
-        }
-    }
+     //jobbra fel
+     var erinthetoe=[];
+     var sorjaro=sor;
+     var oszlopjaro = oszlop;
+     while(sorjaro>0 && oszlopjaro<7)
+     {
+         sorjaro-=1;
+         oszlopjaro+=1;
+         var ertekahelyen = matrix[sorjaro][oszlopjaro];
+         if (ertekahelyen==0 || ertekahelyen==id)
+         {
+             if (ertekahelyen==id)
+             {
+             erintettkorongok= erintettkorongok.concat(erinthetoe);
+             }
+             break;    
+         }
+         else
+         {
+             var koronghely= {sor:sorjaro,oszlop:oszlopjaro}
+             erinthetoe.push(koronghely);
+         }
+     }
 
     return erintettkorongok;
 }
@@ -246,6 +306,37 @@ function korongforditas(erintettkorongok)
         {
             matrix[hely.sor][hely.oszlop]=1;
         }
+    }
+}
+
+function karikamegjelenito() {
+    mozoghatkarika.innerHTML="";
+    for (var sor = 0; sor < 8; sor++) {
+        for (var oszlop = 0; oszlop < 8; oszlop++)    {
+            var ertek = matrix[sor][oszlop]
+            if (ertek ==0 && klikkelheto(jatekos,sor,oszlop)) {
+                var korongkorvonal = document.createElement("div");
+                korongkorvonal.style.position="absolute";
+                korongkorvonal.style.width=kockaszel-1.2+"vw";//A -1 az leveszi a méretét a korongnak, mivel a 
+                korongkorvonal.style.height=kockaszel-1.2+"vw";//kockába pontosan illeszkedik, ami hülyén néz ki ezért lekicsinyítjűk 1 vw-vel(méret ami responsive).
+                korongkorvonal.style.borderRadius="50%";
+                korongkorvonal.style.left=((kockaszel+kockakozotthely)*oszlop)+0.5+"vw";//itt pedig annak az értéknek a felét hozzáadjuk,
+                korongkorvonal.style.top=((kockaszel+kockakozotthely)*sor)+0.5+"vw"; //hogy ne csússzon ki a kereből.
+                korongkorvonal.style.zIndex=2; //evvel előrébb hozzuk a körvonalt, hogy látszódjon.
+                korongkorvonal.setAttribute("onclick","kockaklikk("+sor+","+oszlop+")");   
+                if (jatekos==1) 
+                {
+                    korongkorvonal.style.border="2px solid black"
+                }
+                if (jatekos==2)
+                {
+                    korongkorvonal.style.border="2px solid white"
+                }
+
+                mozoghatkarika.appendChild(korongkorvonal);
+            }
+        }
+        
     }
 }
 
