@@ -4,7 +4,7 @@ var korongok;
 var mozoghatkarika;
 var jatekos=1;
 var pontok;
-var Jatekveg = false;
+var Jatekveg;
 var matrix =[
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
@@ -16,8 +16,9 @@ var matrix =[
     [0,0,0,0,0,0,0,0]
 ];
 
-window.onload = function()
+function Jatekeleje()
 {
+    Jatekveg = false;
     var tabla = document.getElementById("tabla");
     korongok = document.getElementById("korongok");
     pontok = document.getElementById("pontok");
@@ -25,6 +26,16 @@ window.onload = function()
     Tablazat();
     megjelenito();
     karikamegjelenito();
+    matrix =[
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,2,1,0,0,0],
+        [0,0,0,1,2,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0]
+    ];
     
 }
 
@@ -45,22 +56,24 @@ function Tablazat()
     }
 }
 
-function mozoghat(id) {
+function mozoghat(jatekos) {
     for (var sor = 0; sor < 8; sor++) {
         for (var oszlop = 0; oszlop < 8; oszlop++)    {
-            if (klikkelheto(id,sor,oszlop))
+            if (klikkelheto(jatekos,sor,oszlop))
             {
             return true;    
             }
+            
         }
     }
     return false;
 }
-
+var fekete;
+var feher;
 function pontokvalt()
 {
-    var fekete = 0;
-    var feher = 0;
+    fekete = 0;
+    feher = 0;
     for (var sor = 0; sor < 8; sor++) {
         for (var oszlop = 0; oszlop < 8; oszlop++)    {
             var ertek = matrix[sor][oszlop];
@@ -68,33 +81,38 @@ function pontokvalt()
             else if(ertek ==2) feher+=1;
         }
     }
-    pontok.innerHTML="Fekete: "+fekete+ " White: "+feher;
+    pontok.innerHTML="Fekete: "+fekete+ " Fehér: "+feher;
 }
 
 function kockaklikk(sor,oszlop)
 {
-    if (Jatekveg) return;
+    Jatekveg=true;
 
     if (matrix[sor][oszlop]!= 0) {
         return;
     }
     if (klikkelheto(jatekos,sor,oszlop)==true) {
         var erintettkorongok = mikerintettkorongok(jatekos,sor,oszlop);
+        console.log(mikerintettkorongok(jatekos,sor,oszlop));
         korongforditas(erintettkorongok);
         matrix[sor][oszlop]=jatekos;
         if(jatekos==1 && mozoghat(2))jatekos=2;
-        else if (jatekos=1 && mozoghat(1));
-        if (mozoghat(1)==false && mozoghat(2)==false) 
-        {
-         alert("Vége a játéknak!")   
-         Jatekveg = true;
-        }
+        else if (jatekos == 2 && mozoghat(1)) jatekos =1;
         megjelenito();
         karikamegjelenito();
         pontokvalt();
+        if (Jatekveg) {
+            Vege();
+        }
     }
     else {return;}
     
+}
+
+function Vege() {
+    if (feher>fekete) alert("A Fehér Nyert!");
+    
+    else alert("A Fekete Nyert!");
 }
 
 function klikkelheto(jatekos,sor,oszlop)
@@ -161,7 +179,7 @@ function mikerintettkorongok(id,sor,oszlop)
         var ertekahelyen = matrix[sorjaro][oszlop];
         if (ertekahelyen==0 || ertekahelyen==id)
         {
-            if (ertekahelyen=id)
+            if (ertekahelyen==id)
             {
             erintettkorongok=erintettkorongok.concat(erinthetoe);
             }
@@ -315,6 +333,7 @@ function karikamegjelenito() {
         for (var oszlop = 0; oszlop < 8; oszlop++)    {
             var ertek = matrix[sor][oszlop]
             if (ertek ==0 && klikkelheto(jatekos,sor,oszlop)) {
+                Jatekveg=false;
                 var korongkorvonal = document.createElement("div");
                 korongkorvonal.style.position="absolute";
                 korongkorvonal.style.width=kockaszel-1.2+"vw";//A -1 az leveszi a méretét a korongnak, mivel a 
@@ -373,3 +392,5 @@ function megjelenito()
         
     }
 }
+
+Jatekeleje();
