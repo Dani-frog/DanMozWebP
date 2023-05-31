@@ -18,14 +18,14 @@ var matrix =[
 
 function Jatekeleje()
 {
+    document.getElementById("tabla").style.opacity="100%";
+    document.getElementById("korongok").style.opacity="100%";
+    document.getElementById("pontok").style.opacity="100%";
     Jatekveg = false;
     var tabla = document.getElementById("tabla");
     korongok = document.getElementById("korongok");
     pontok = document.getElementById("pontok");
     mozoghatkarika=document.getElementById("mozoghatkarika");
-    Tablazat();
-    megjelenito();
-    karikamegjelenito();
     matrix =[
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0],
@@ -36,7 +36,12 @@ function Jatekeleje()
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0]
     ];
-    
+    Tablazat();
+    megjelenito();
+    karikamegjelenito();
+    pontokvalt();
+    document.getElementById("Kezdogomb").style.zIndex=2;
+    document.getElementById("Kezdogomb").style.display="none";
 }
 
 function Tablazat()
@@ -111,8 +116,11 @@ function kockaklikk(sor,oszlop)
 
 function Vege() {
     if (feher>fekete) alert("A Fehér Nyert!");
-    
     else alert("A Fekete Nyert!");
+    document.getElementById("Kezdogomb").style.display="block";
+    document.getElementById("tabla").style.opacity="50%";
+    document.getElementById("korongok").style.opacity="50%";
+    document.getElementById("pontok").style.opacity="50%";
 }
 
 function klikkelheto(jatekos,sor,oszlop)
@@ -339,8 +347,8 @@ function karikamegjelenito() {
                 korongkorvonal.style.width=kockaszel-1.2+"vw";//A -1 az leveszi a méretét a korongnak, mivel a 
                 korongkorvonal.style.height=kockaszel-1.2+"vw";//kockába pontosan illeszkedik, ami hülyén néz ki ezért lekicsinyítjűk 1 vw-vel(méret ami responsive).
                 korongkorvonal.style.borderRadius="50%";
-                korongkorvonal.style.left=((kockaszel+kockakozotthely)*oszlop)+0.5+"vw";//itt pedig annak az értéknek a felét hozzáadjuk,
-                korongkorvonal.style.top=((kockaszel+kockakozotthely)*sor)+0.5+"vw"; //hogy ne csússzon ki a kereből.
+                korongkorvonal.style.left=((kockaszel+kockakozotthely)*oszlop)+1+"vw";//itt pedig annak az értéknek a felét hozzáadjuk,
+                korongkorvonal.style.top=((kockaszel+kockakozotthely)*sor)+"vw"; //hogy ne csússzon ki a kereből.
                 korongkorvonal.style.zIndex=2; //evvel előrébb hozzuk a körvonalt, hogy látszódjon.
                 korongkorvonal.setAttribute("onclick","kockaklikk("+sor+","+oszlop+")");   
                 if (jatekos==1) 
@@ -373,8 +381,8 @@ function megjelenito()
                 korong.style.width=kockaszel-1+"vw";//A -1 az leveszi a méretét a korongnak, mivel a 
                 korong.style.height=kockaszel-1+"vw";//kockába pontosan illeszkedik, ami hülyén néz ki ezért lekicsinyítjűk 1 vw-vel(méret ami responsive).
                 korong.style.borderRadius="50%";
-                korong.style.left=((kockaszel+kockakozotthely)*oszlop)+0.5+"vw";//itt pedig annak az értéknek a felét hozzáadjuk,
-                korong.style.top=((kockaszel+kockakozotthely)*sor)+0.5+"vw"; //hogy ne csússzon ki a kereből.
+                korong.style.left=((kockaszel+kockakozotthely)*oszlop)+1+"vw";//itt pedig annak az értéknek a felét hozzáadjuk,
+                korong.style.top=((kockaszel+kockakozotthely)*sor)+"vw"; //hogy ne csússzon ki a kereből.
                 korongok.appendChild(korong);
 
             if (ertek==1) 
@@ -393,4 +401,4 @@ function megjelenito()
     }
 }
 
-Jatekeleje();
+

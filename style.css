@@ -4,14 +4,44 @@ body{
     background-attachment: fixed;
     background-size: cover;
     position: relative;
+    padding-top: 5vw;
+    
 }
 
+#tabla{
+    left: 85%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+div{
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: relative;
+    left: 84%;
+    top: 0.6%;
+}
 
 #pontok{
+    padding-left: 1vw;
+    padding-right: 1vw;
     position: absolute;
-    top: 40vw;
+    top: 45vw;
     background-color: white;
     border: solid black 1vw;
     font-size:  5vw;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#Kezdogomb{
+    font-size:  5vw;
+    margin: 0;
+    position: absolute;
+    background-color: white;
+    border-radius: 15%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
