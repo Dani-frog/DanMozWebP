@@ -5,6 +5,8 @@ var mozoghatkarika;
 var jatekos=1;
 var pontok;
 var Jatekveg;
+var eredmeny = [0,0] // Az első szám a fekete játékos eredménye,a második a fehéré
+var pont; // ide írjuk az összes eredményt, csak itt létre kell már hozni
 var matrix =[
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
@@ -15,7 +17,12 @@ var matrix =[
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0]
 ];
+function Reset(){   
+    pont.innerHTML = "";
+    eredmeny[0,0];
+    Jatekeleje();
 
+}
 function Jatekeleje()
 {
     document.getElementById("tabla").style.opacity="100%";
@@ -42,6 +49,10 @@ function Jatekeleje()
     pontokvalt();
     document.getElementById("Kezdogomb").style.zIndex=2;
     document.getElementById("Kezdogomb").style.display="none";
+    var gyozelemszamlalo = document.getElementById("osszeseredmeny");
+    pont = document.createElement("p");
+    pont.innerHTML = "Fekete győzelmek:"+eredmeny[0]+" Fehér győzelmek:"+eredmeny[1];
+    gyozelemszamlalo.appendChild(pont);
 }
 
 function Tablazat()
@@ -121,6 +132,19 @@ function Vege() {
     document.getElementById("tabla").style.opacity="50%";
     document.getElementById("korongok").style.opacity="50%";
     document.getElementById("pontok").style.opacity="50%";
+    if(feher>fekete){
+        eredmeny[1]+=1;
+    }
+    else if(fekete>feher){
+        eredmeny[0]+=1;
+    }
+    else{
+        eredmeny[0]+=1;
+        eredmeny[1]+=1;
+    }
+    pont.innerHTML = "";
+    Jatekeleje();
+    
 }
 
 function klikkelheto(jatekos,sor,oszlop)
@@ -400,5 +424,4 @@ function megjelenito()
         
     }
 }
-
 
