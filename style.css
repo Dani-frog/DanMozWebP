@@ -44,4 +44,11 @@ div{
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
-
+#osszeseredmeny{
+    color: white;
+    font-size: large;
+    font-style: normal;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 35%;
+}
