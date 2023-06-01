@@ -7,6 +7,7 @@ var pontok;
 var Jatekveg;
 var eredmeny = [0,0] // Az első szám a fekete játékos eredménye,a második a fehéré
 var pont; // ide írjuk az összes eredményt, csak itt létre kell már hozni
+var lefutott;
 var matrix =[
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
@@ -18,8 +19,7 @@ var matrix =[
     [0,0,0,0,0,0,0,0]
 ];
 function Reset(){   
-    pont.innerHTML = "";
-    eredmeny[0,0];
+    location.reload();
 }
 function Jatekeleje()
 {
@@ -52,7 +52,12 @@ function Jatekeleje()
     pont = document.createElement("p");
     pont.innerHTML = "Fekete győzelmek:"+eredmeny[0]+" Fehér győzelmek:"+eredmeny[1];
     gyozelemszamlalo.appendChild(pont);
-    document.getElementById("nyert").parentNode.removeChild(document.getElementById("nyert"));
+    if (lefutott) {
+        document.getElementById("nyert").parentNode.removeChild(document.getElementById("nyert"));
+    }
+    
+    
+   
 }
 
 function Tablazat()
@@ -103,7 +108,7 @@ function pontokvalt()
 function kockaklikk(sor,oszlop)
 {
     Jatekveg=true;
-
+    lefutott=true;
     if (matrix[sor][oszlop]!= 0) {
         return;
     }
