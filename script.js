@@ -20,11 +20,10 @@ var matrix =[
 function Reset(){   
     pont.innerHTML = "";
     eredmeny[0,0];
-    Jatekeleje();
-
 }
 function Jatekeleje()
 {
+
     document.getElementById("tabla").style.opacity="100%";
     document.getElementById("korongok").style.opacity="100%";
     document.getElementById("pontok").style.opacity="100%";
@@ -53,6 +52,7 @@ function Jatekeleje()
     pont = document.createElement("p");
     pont.innerHTML = "Fekete győzelmek:"+eredmeny[0]+" Fehér győzelmek:"+eredmeny[1];
     gyozelemszamlalo.appendChild(pont);
+    document.getElementById("nyert").parentNode.removeChild(document.getElementById("nyert"));
 }
 
 function Tablazat()
@@ -125,13 +125,28 @@ function kockaklikk(sor,oszlop)
     
 }
 
+function Fehernyert() {
+    var a = document.createElement("a");
+    a.style.textAlign = "center";
+    a.id="nyert";
+    a.innerText = "Fehér Nyert!";
+    document.body.appendChild(a);
+  }
+function Feketenyert() {
+    var a = document.createElement("a");
+    a.style.textAlign = "center";
+    a.id="nyert";
+    a.innerText = "Fekete Nyert!";
+    document.body.appendChild(a);
+}
+
 function Vege() {
-    if (feher>fekete) alert("A Fehér Nyert!");
-    else alert("A Fekete Nyert!");
     document.getElementById("Kezdogomb").style.display="block";
     document.getElementById("tabla").style.opacity="50%";
     document.getElementById("korongok").style.opacity="50%";
     document.getElementById("pontok").style.opacity="50%";
+    if (feher>fekete) Fehernyert();
+    else Feketenyert();
     if(feher>fekete){
         eredmeny[1]+=1;
     }
@@ -143,7 +158,6 @@ function Vege() {
         eredmeny[1]+=1;
     }
     pont.innerHTML = "";
-    Jatekeleje();
     
 }
 
@@ -424,4 +438,3 @@ function megjelenito()
         
     }
 }
-
